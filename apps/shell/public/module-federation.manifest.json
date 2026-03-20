@@ -1,0 +1,5 @@
+{
+  "billing": "https://orion-billing.vercel.app/mf-manifest.json",
+  "analytics": "https://orion-analytics.vercel.app/mf-manifest.json",
+  "compliance": "https://orion-compliance.vercel.app/mf-manifest.json"
+}

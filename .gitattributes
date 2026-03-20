@@ -1,0 +1,35 @@
+# .gitattributes - Language detection and project technologies
+
+# Mark generated files (ignored in stats)
+dist/* linguist-generated=true
+build/* linguist-generated=true
+node_modules/* linguist-generated=true
+.angular/* linguist-generated=true
+.nx/* linguist-generated=true
+
+# Force include certain languages
+*.html linguist-detectable=true
+*.css linguist-detectable=true
+*.ts linguist-detectable=true
+*.js linguist-detectable=true
+*.prisma linguist-detectable=true
+*.graphql linguist-detectable=true
+
+# Technology Mapping (Linguist overrides for better project stats)
+*.ts linguist-language=TypeScript
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+*.prisma linguist-language=Prisma
+*.graphql linguist-language=GraphQL
+
+# Project Technologies Used:
+# - Framework: Angular 16+ (Host & Remotes)
+# - Monorepo Tooling: Nx
+# - Backend: NestJS (Microservices)
+# - API: Apollo GraphQL Federation
+# - ORM: Prisma
+# - Database: PostgreSQL (Neon.tech)
+# - Real-time: Socket.io / WebSockets
+# - Infrastructure: Vercel (Frontend), Render.com (Backend)
+# - Authentication: Google OAuth 2.0 + JWT
+# - Architecture: Micro-Frontends (Module Federation)

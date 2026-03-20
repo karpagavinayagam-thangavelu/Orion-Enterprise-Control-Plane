@@ -1,0 +1,91 @@
+@if (user()) {
+<div class="app-container">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="!isSidebarOpen()">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <orion-logo size="32px" className="logo-svg"></orion-logo>
+        <span class="logo-text">ORION</span>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">Dashboard</span>
+      </a>
+
+      @for (feature of authorizedFeatures(); track feature.key) {
+      <a [routerLink]="feature.routePath" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">{{ feature.icon }}</span>
+        <span class="nav-text">{{ feature.displayName }}</span>
+      </a>
+      }
+
+      <a *orionAuthorized="[]; roles: ['ADMIN']" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-text">System Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <header class="header">
+      <div class="header-left">
+        <button class="btn-toggle" (click)="toggleSidebar()">☰</button>
+      </div>
+
+      <div class="header-right" style="display: flex; align-items: center; gap: 20px;">
+        @if (notificationService.notifications().length > 0) {
+        <div class="notification-toast">
+          <span class="bell">🔔</span> {{ notificationService.notifications()[0] }}
+        </div>
+        }
+
+        @if (user(); as u) {
+        <div class="user-profile">
+          <span class="user-name">{{ u.name }}</span>
+          <div class="avatar">{{ u.name[0] }}</div>
+          <button class="btn-logout" (click)="logout()">Logout</button>
+        </div>
+        }
+      </div>
+    </header>
+
+    <main class="content-area">
+      @if (featureLoader.isContentLoading()) {
+      <orion-skeleton-loader></orion-skeleton-loader>
+      } @else {
+      <router-outlet></router-outlet>
+      }
+
+      <!-- Default Dashboard View if at root -->
+      @if (router.url === '/') {
+      <div class="welcome-card">
+        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+          <orion-logo size="120px" strokeWidth="1.5" connectionWidth="1"></orion-logo>
+        </div>
+        <h1 style="margin-bottom: 16px; text-align: center;">Welcome to Orion Platform</h1>
+        <p style="color: var(--text-dim); line-height: 1.6;">
+          You are currently logged in with <strong>{{ user()?.roles?.join(', ') }}</strong> privileges.
+          Access the micro-frontends from the sidebar based on your permissions.
+        </p>
+
+        <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+          @for (f of authorizedFeatures(); track f.key) {
+          <div style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px;">
+            <div style="font-size: 2rem; margin-bottom: 12px;">{{ f.icon }}</div>
+            <h3>{{ f.displayName }}</h3>
+            <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 8px;">Authorized Module</p>
+          </div>
+          }
+        </div>
+      </div>
+      }
+    </main>
+  </div>
+</div>
+} @else {
+<router-outlet></router-outlet>
+}

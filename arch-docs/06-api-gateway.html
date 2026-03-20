@@ -1,0 +1,693 @@
+<!DOCTYPE html><html><head>
+      <title>06-api-gateway</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/karpagavinayagam/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:////home/karpagavinayagam/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      <div>
+<h1 id="api-gateway--graphql-federation">API Gateway &amp; GraphQL Federation </h1>
+<h2 id="overview">Overview </h2>
+<p>The API Gateway uses <strong>Apollo Federation</strong> to compose multiple GraphQL subgraphs into a single unified GraphQL API, providing a single entry point for all client queries.</p>
+<h2 id="api-gateway-architecture">API Gateway Architecture </h2>
+<div class="mermaid">graph TB
+    subgraph "Client Layer"
+        C1[Shell App]
+        C2[Billing MFE]
+        C3[Analytics MFE]
+        C4[Compliance MFE]
+    end
+
+    subgraph "API Gateway (Port 3000)"
+        GW[Apollo Gateway]
+        EXEC[GraphQL Executor]
+        PLANNER[Query Planner]
+        COMPOSER[Schema Composer]
+    end
+
+    subgraph "Subgraph Services"
+        S1[Auth Service&lt;br/&gt;localhost:3001/graphql]
+        S2[User Service&lt;br/&gt;localhost:3002/graphql]
+        S3[Feature Service&lt;br/&gt;localhost:3003/graphql]
+        S4[Analytics Service&lt;br/&gt;localhost:3004/graphql]
+        S5[Notification Service&lt;br/&gt;localhost:3005/graphql]
+        S6[Billing Service&lt;br/&gt;localhost:3006/graphql]
+        S7[Compliance Service&lt;br/&gt;localhost:3007/graphql]
+    end
+
+    C1 --&gt;|GraphQL Query| GW
+    C2 --&gt;|GraphQL Query| GW
+    C3 --&gt;|GraphQL Query| GW
+    C4 --&gt;|GraphQL Query| GW
+
+    GW --&gt; PLANNER
+    PLANNER --&gt; COMPOSER
+    COMPOSER --&gt; EXEC
+
+    EXEC --&gt;|Subgraph Query| S1
+    EXEC --&gt;|Subgraph Query| S2
+    EXEC --&gt;|Subgraph Query| S3
+    EXEC --&gt;|Subgraph Query| S4
+    EXEC --&gt;|Subgraph Query| S5
+    EXEC --&gt;|Subgraph Query| S6
+    EXEC --&gt;|Subgraph Query| S7
+
+    style GW fill:#e8f5e9
+</div><h2 id="gateway-configuration">Gateway Configuration </h2>
+<div class="mermaid">classDiagram
+    class AppModule {
+        +imports: GraphQLModule
+        +providers: []
+        +controllers: AppController
+    }
+
+    class GraphQLModule {
+        +driver: ApolloGatewayDriver
+        +gateway: ApolloGateway
+        +server: ApolloServer
+    }
+
+    class ApolloGateway {
+        +supergraphSdl?: string
+        +serviceList: ServiceEndpoint[]
+        +buildService: Function
+    }
+
+    class ServiceEndpoint {
+        +name: string
+        +url: string
+    }
+
+    class RemoteGraphQLDataSource {
+        +willSendRequest(options): void
+        +didReceiveResponse(options): Response
+    }
+
+    AppModule --&gt; GraphQLModule
+    GraphQLModule --&gt; ApolloGateway
+    ApolloGateway --&gt; ServiceEndpoint
+    ApolloGateway --&gt; RemoteGraphQLDataSource
+</div><p><strong>Gateway Configuration Code:</strong></p>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token comment">// apps/api-gateway/src/app/app.module.ts</span>
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Module</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  imports<span class="token operator">:</span> <span class="token punctuation">[</span>
+    GraphQLModule<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">forRoot</span><span class="token generic class-name"><span class="token operator">&lt;</span>ApolloGatewayDriverConfig<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      driver<span class="token operator">:</span> ApolloGatewayDriver<span class="token punctuation">,</span>
+      gateway<span class="token operator">:</span> <span class="token punctuation">{</span>
+        serviceList<span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'auth'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">AUTH_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'users'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">USER_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'features'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">FEATURE_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'analytics'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">ANALYTICS_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'notifications'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NOTIFICATION_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'billing'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">BILLING_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'compliance'</span><span class="token punctuation">,</span> url<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">COMPLIANCE_SERVICE_URL</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token function">buildService</span><span class="token punctuation">(</span><span class="token punctuation">{</span> url <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">RemoteGraphQLDataSource</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            url<span class="token punctuation">,</span>
+            <span class="token function">willSendRequest</span><span class="token punctuation">(</span><span class="token punctuation">{</span> request<span class="token punctuation">,</span> context <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token comment">// Forward headers, add auth token, etc.</span>
+              request<span class="token punctuation">.</span>http<span class="token punctuation">.</span>headers<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'authorization'</span><span class="token punctuation">,</span> context<span class="token punctuation">.</span>req<span class="token operator">?.</span>headers<span class="token operator">?.</span>authorization <span class="token operator">||</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      server<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token function-variable function">context</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> req <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> req <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-export">export</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">AppModule</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre><h2 id="subgraph-registration">Subgraph Registration </h2>
+<div class="mermaid">graph LR
+    subgraph "Service Discovery"
+        ENV[Environment Variables]
+        LIST[Service List]
+        REG[Registry]
+    end
+
+    subgraph "Subgraphs"
+        S1[auth-service]
+        S2[user-service]
+        S3[billing-service]
+        S4[analytics-service]
+        S5[compliance-service]
+    end
+
+    ENV --&gt; LIST
+    LIST --&gt; REG
+
+    REG -.-&gt;|Discover| S1
+    REG -.-&gt;|Discover| S2
+    REG -.-&gt;|Discover| S3
+    REG -.-&gt;|Discover| S4
+    REG -.-&gt;|Discover| S5
+
+    style REG fill:#e8f5e9
+</div><p><strong>Environment Configuration:</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># .env for API Gateway</span>
+<span class="token assign-left variable">AUTH_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3001/graphql
+<span class="token assign-left variable">USER_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3002/graphql
+<span class="token assign-left variable">FEATURE_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3003/graphql
+<span class="token assign-left variable">ANALYTICS_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3004/graphql
+<span class="token assign-left variable">NOTIFICATION_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3005/graphql
+<span class="token assign-left variable">BILLING_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3006/graphql
+<span class="token assign-left variable">COMPLIANCE_SERVICE_URL</span><span class="token operator">=</span>http://localhost:3007/graphql
+</code></pre><h2 id="query-planning--execution">Query Planning &amp; Execution </h2>
+<div class="mermaid">sequenceDiagram
+    participant Client
+    participant Gateway as API Gateway
+    participant Planner as Query Planner
+    participant Auth as Auth Subgraph
+    participant Billing as Billing Subgraph
+    participant DB as Database
+
+    Client-&gt;&gt;Gateway: Complex Query&lt;br/&gt;{user, transactions}
+    Gateway-&gt;&gt;Planner: Parse &amp; Plan Query
+
+    Note over Planner: Analyze query&lt;br/&gt;Split into subgraph queries
+
+    Planner-&gt;&gt;Planner: Create Query Plan
+
+    par Parallel Execution
+        Gateway-&gt;&gt;Auth: Query {user}
+        Auth-&gt;&gt;Auth: Process (no DB)
+        Auth--&gt;&gt;Gateway: User data
+    and
+        Gateway-&gt;&gt;Billing: Query {transactions}
+        Billing-&gt;&gt;DB: SELECT * FROM Transaction
+        DB--&gt;&gt;Billing: Transaction records
+        Billing--&gt;&gt;Gateway: Transaction data
+    end
+
+    Gateway-&gt;&gt;Gateway: Merge Results
+    Gateway--&gt;&gt;Client: Unified Response
+</div><p><strong>Example Query Plan:</strong></p>
+<pre data-role="codeBlock" data-info="graphql" class="language-graphql graphql"><code><span class="token comment"># Client sends this query</span>
+<span class="token keyword keyword-query">query</span> <span class="token definition-query function">GetUserWithTransactions</span> <span class="token punctuation">{</span>
+  <span class="token property-query">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token string">"user-123"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property">id</span>
+    <span class="token property">name</span>
+    <span class="token property">email</span>
+  <span class="token punctuation">}</span>
+  <span class="token property-query">transactions</span><span class="token punctuation">(</span><span class="token attr-name">limit</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property">id</span>
+    <span class="token property">customerName</span>
+    <span class="token property">amount</span>
+    <span class="token property">status</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Gateway splits into:</span>
+<span class="token comment"># ┌─────────────────────────────────────┐</span>
+<span class="token comment"># │ To Auth Service:                    │</span>
+<span class="token comment"># │ query {                             │</span>
+<span class="token comment"># │   user(id: "user-123") {            │</span>
+<span class="token comment"># │     id                              │</span>
+<span class="token comment"># │     name                            │</span>
+<span class="token comment"># │     email                           │</span>
+<span class="token comment"># │   }                                 │</span>
+<span class="token comment"># │ }                                   │</span>
+<span class="token comment"># └─────────────────────────────────────┘</span>
+<span class="token comment">#</span>
+<span class="token comment"># ┌─────────────────────────────────────┐</span>
+<span class="token comment"># │ To Billing Service:                 │</span>
+<span class="token comment"># │ query {                             │</span>
+<span class="token comment"># │   transactions(limit: 10) {         │</span>
+<span class="token comment"># │     id                              │</span>
+<span class="token comment"># │     customerName                    │</span>
+<span class="token comment"># │     amount                          │</span>
+<span class="token comment"># │     status                          │</span>
+<span class="token comment"># │   }                                 │</span>
+<span class="token comment"># │ }                                   │</span>
+<span class="token comment"># └─────────────────────────────────────┘</span>
+</code></pre><h2 id="schema-composition">Schema Composition </h2>
+<div class="mermaid">graph TB
+    subgraph "Supergraph Schema"
+        SUPER[Composed Schema&lt;br/&gt;Single GraphQL API]
+    end
+
+    subgraph "Subgraph Schemas"
+        AUTH_SCHEMA["Auth Subgraph&lt;br/&gt;type Query {&lt;br/&gt;  user: User&lt;br/&gt;}&lt;br/&gt;type User @key(fields: 'id') {&lt;br/&gt;  id: ID!&lt;br/&gt;  email: String&lt;br/&gt;  name: String&lt;br/&gt;}"]
+
+        BILLING_SCHEMA["Billing Subgraph&lt;br/&gt;type Query {&lt;br/&gt;  transactions: [Transaction]&lt;br/&gt;  revenueStats: RevenueStats&lt;br/&gt;}&lt;br/&gt;type Transaction {&lt;br/&gt;  id: ID!&lt;br/&gt;  amount: Float&lt;br/&gt;}"]
+
+        ANALYTICS_SCHEMA["Analytics Subgraph&lt;br/&gt;type Query {&lt;br/&gt;  analyticsStats: AnalyticsStats&lt;br/&gt;  recentActivity: [ActivityLog]&lt;br/&gt;}"]
+
+        COMPLIANCE_SCHEMA["Compliance Subgraph&lt;br/&gt;type Query {&lt;br/&gt;  complianceStats: ComplianceStats&lt;br/&gt;  complianceChecks: [ComplianceCheck]&lt;br/&gt;}"]
+    end
+
+    AUTH_SCHEMA --&gt; SUPER
+    BILLING_SCHEMA --&gt; SUPER
+    ANALYTICS_SCHEMA --&gt; SUPER
+    COMPLIANCE_SCHEMA --&gt; SUPER
+
+    style SUPER fill:#e8f5e9
+</div><h2 id="graphql-schema-federation-directives">GraphQL Schema Federation Directives </h2>
+<div class="mermaid">graph TB
+    subgraph "Federation Directives"
+        KEY["@key&lt;br/&gt;Define entity key"]
+        EXTENDS["@extends&lt;br/&gt;Extend type from another service"]
+        EXTERNAL["@external&lt;br/&gt;Mark field from another service"]
+        REQUIRES["@requires&lt;br/&gt;Declare dependencies"]
+        PROVIDES["@provides&lt;br/&gt;Declare provided fields"]
+    end
+
+    subgraph "Use Cases"
+        U1[Define shareable entities]
+        U2[Extend types across services]
+        U3[Reference external fields]
+        U4[Specify field requirements]
+        U5[Optimize query planning]
+    end
+
+    KEY --&gt; U1
+    EXTENDS --&gt; U2
+    EXTERNAL --&gt; U3
+    REQUIRES --&gt; U4
+    PROVIDES --&gt; U5
+
+    style KEY fill:#e3f2fd
+</div><p><strong>Example Federation Schema:</strong></p>
+<pre data-role="codeBlock" data-info="graphql" class="language-graphql graphql"><code><span class="token comment"># Auth Service Schema</span>
+<span class="token keyword keyword-type">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+  <span class="token attr-name">permissions</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-type">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">User</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># User Service Schema (extends User)</span>
+<span class="token keyword keyword-extend">extend</span> <span class="token keyword keyword-type">type</span> <span class="token class-name">User</span> <span class="token directive function">@key</span><span class="token punctuation">(</span><span class="token attr-name">fields</span><span class="token punctuation">:</span> <span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span> <span class="token directive function">@external</span>
+  <span class="token attr-name">profile</span><span class="token punctuation">:</span> <span class="token class-name">UserProfile</span>
+  <span class="token attr-name">settings</span><span class="token punctuation">:</span> <span class="token class-name">UserSettings</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-type">type</span> <span class="token class-name">UserProfile</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">bio</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+  <span class="token attr-name">avatar</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="request-flow-through-gateway">Request Flow Through Gateway </h2>
+<div class="mermaid">graph TB
+    A[Incoming GraphQL Request] --&gt; B{CORS Check}
+    B --&gt;|Fail| C[403 Forbidden]
+    B --&gt;|Pass| D{Parse Query}
+
+    D --&gt;|Invalid| E[400 Bad Request]
+    D --&gt;|Valid| F{Query Planning}
+
+    F --&gt; G[Identify Required Subgraphs]
+    G --&gt; H{Execute Subgraph Queries}
+
+    H --&gt; I{All Successful?}
+    I --&gt;|No| J[Partial Error Response]
+    I --&gt;|Yes| K[Merge Results]
+
+    K --&gt; L{Transform Response}
+    L --&gt; M[Send to Client]
+
+    style M fill:#c8e6c9
+    style C fill:#ffcdd2
+    style E fill:#ffcdd2
+    style J fill:#fff3e0
+</div><h2 id="error-handling-strategy">Error Handling Strategy </h2>
+<div class="mermaid">graph TB
+    A[Subgraph Query] --&gt; B{Response}
+
+    B --&gt;|Success| C[Include in Result]
+    B --&gt;|Network Error| D{Retry?}
+    B --&gt;|GraphQL Error| E[Include in Errors Array]
+    B --&gt;|Timeout| F[Timeout Error]
+
+    D --&gt;|Yes| A
+    D --&gt;|No| G[Service Unavailable Error]
+
+    C --&gt; H[Merged Response]
+    E --&gt; H
+    F --&gt; H
+    G --&gt; H
+
+    H --&gt; I{Partial Data?}
+    I --&gt;|Yes| J[Return data + errors]
+    I --&gt;|No| K[Return errors only]
+
+    style C fill:#c8e6c9
+    style J fill:#fff3e0
+    style K fill:#ffcdd2
+</div><p><strong>Error Response Format:</strong></p>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+  <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"trans-001"</span><span class="token punctuation">,</span>
+        <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">50000</span><span class="token punctuation">,</span>
+        <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"completed"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"analyticsStats"</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"errors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Service temporarily unavailable"</span><span class="token punctuation">,</span>
+      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"analyticsStats"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"extensions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"code"</span><span class="token operator">:</span> <span class="token string">"SERVICE_UNAVAILABLE"</span><span class="token punctuation">,</span>
+        <span class="token property">"serviceName"</span><span class="token operator">:</span> <span class="token string">"analytics"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="cors-configuration">CORS Configuration </h2>
+<div class="mermaid">graph LR
+    subgraph "API Gateway main.ts"
+        MAIN[NestJS App]
+        CORS[app.enableCors]
+    end
+
+    subgraph "Allowed Origins"
+        O1[http://localhost:4200&lt;br/&gt;Shell App]
+        O2[http://localhost:4201&lt;br/&gt;Billing MFE]
+        O3[http://localhost:4202&lt;br/&gt;Analytics MFE]
+        O4[http://localhost:4203&lt;br/&gt;Compliance MFE]
+        O5[https://*.vercel.app&lt;br/&gt;Production]
+    end
+
+    MAIN --&gt; CORS
+    CORS -.-&gt;|Allow| O1
+    CORS -.-&gt;|Allow| O2
+    CORS -.-&gt;|Allow| O3
+    CORS -.-&gt;|Allow| O4
+    CORS -.-&gt;|Allow| O5
+
+    style CORS fill:#e8f5e9
+</div><p><strong>CORS Configuration Code:</strong></p>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token comment">// apps/api-gateway/src/main.ts</span>
+<span class="token keyword keyword-async">async</span> <span class="token keyword keyword-function">function</span> <span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-const">const</span> app <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> NestFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>AppModule<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Enable CORS for all frontend applications</span>
+  app<span class="token punctuation">.</span><span class="token function">enableCors</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    origin<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">'http://localhost:4200'</span><span class="token punctuation">,</span>
+      <span class="token string">'http://localhost:4201'</span><span class="token punctuation">,</span>
+      <span class="token string">'http://localhost:4202'</span><span class="token punctuation">,</span>
+      <span class="token string">'http://localhost:4203'</span><span class="token punctuation">,</span>
+      <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.vercel\.app$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token comment">// All Vercel deployments</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    credentials<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-await">await</span> app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">PORT</span> <span class="token operator">||</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="caching-strategy">Caching Strategy </h2>
+<div class="mermaid">graph TB
+    subgraph "Gateway Cache Layers"
+        L1[In-Memory Cache&lt;br/&gt;Apollo Server Cache]
+        L2[Response Cache&lt;br/&gt;@cacheControl directive]
+    end
+
+    subgraph "Cache Policies"
+        P1[No Cache&lt;br/&gt;Mutations, sensitive data]
+        P2[Short TTL&lt;br/&gt;Frequently changing data&lt;br/&gt;1-5 minutes]
+        P3[Long TTL&lt;br/&gt;Static data&lt;br/&gt;1 hour+]
+    end
+
+    L1 --&gt; P1
+    L1 --&gt; P2
+    L1 --&gt; P3
+
+    L2 --&gt; P2
+    L2 --&gt; P3
+
+    style L1 fill:#e8f5e9
+    style L2 fill:#fff3e0
+</div><p><strong>Cache Control Example:</strong></p>
+<pre data-role="codeBlock" data-info="graphql" class="language-graphql graphql"><code><span class="token keyword keyword-type">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token comment"># Cached for 5 minutes</span>
+  <span class="token attr-name">transactions</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Transaction</span><span class="token punctuation">]</span> <span class="token directive function">@cacheControl</span><span class="token punctuation">(</span><span class="token attr-name">maxAge</span><span class="token punctuation">:</span> <span class="token number">300</span><span class="token punctuation">)</span>
+
+  <span class="token comment"># Cached for 1 hour</span>
+  <span class="token attr-name">revenueStats</span><span class="token punctuation">:</span> <span class="token class-name">RevenueStats</span> <span class="token directive function">@cacheControl</span><span class="token punctuation">(</span><span class="token attr-name">maxAge</span><span class="token punctuation">:</span> <span class="token number">3600</span><span class="token punctuation">)</span>
+
+  <span class="token comment"># Never cached</span>
+  <span class="token attr-name">currentUser</span><span class="token punctuation">:</span> <span class="token class-name">User</span> <span class="token directive function">@cacheControl</span><span class="token punctuation">(</span><span class="token attr-name">maxAge</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="performance-optimizations">Performance Optimizations </h2>
+<div class="mermaid">graph TB
+    subgraph "Optimization Techniques"
+        O1[Query Batching]
+        O2[DataLoader Pattern]
+        O3[Parallel Execution]
+        O4[Response Caching]
+        O5[Schema Pruning]
+        O6[Persisted Queries]
+    end
+
+    subgraph "Benefits"
+        B1[Reduced Network Calls]
+        B2[Avoid N+1 Queries]
+        B3[Faster Response Times]
+        B4[Lower Server Load]
+        B5[Smaller Payloads]
+        B6[CDN Caching]
+    end
+
+    O1 --&gt; B1
+    O2 --&gt; B2
+    O3 --&gt; B3
+    O4 --&gt; B4
+    O5 --&gt; B5
+    O6 --&gt; B6
+
+    style O1 fill:#e3f2fd
+    style O2 fill:#e3f2fd
+    style O3 fill:#e3f2fd
+    style O4 fill:#e3f2fd
+</div><h2 id="monitoring--observability">Monitoring &amp; Observability </h2>
+<div class="mermaid">graph TB
+    subgraph "Metrics Collection"
+        M1[Query Latency]
+        M2[Subgraph Response Times]
+        M3[Error Rates]
+        M4[Cache Hit Ratio]
+    end
+
+    subgraph "Logging"
+        L1[Query Logs]
+        L2[Error Logs]
+        L3[Performance Logs]
+    end
+
+    subgraph "Tracing"
+        T1[Distributed Tracing]
+        T2[Query Execution Path]
+    end
+
+    M1 --&gt; DASH[Monitoring Dashboard]
+    M2 --&gt; DASH
+    M3 --&gt; DASH
+    M4 --&gt; DASH
+
+    L1 --&gt; LOG[Centralized Logging]
+    L2 --&gt; LOG
+    L3 --&gt; LOG
+
+    T1 --&gt; TRACE[Trace Viewer]
+    T2 --&gt; TRACE
+
+    style DASH fill:#e8f5e9
+    style LOG fill:#fff3e0
+    style TRACE fill:#e3f2fd
+</div><h2 id="graphql-playground--introspection">GraphQL Playground &amp; Introspection </h2>
+<div class="mermaid">graph LR
+    subgraph "Development Tools"
+        PLAY[GraphQL Playground&lt;br/&gt;localhost:3000/graphql]
+        INTRO[Schema Introspection]
+        DOCS[Auto-generated Docs]
+    end
+
+    subgraph "Features"
+        F1[Test Queries]
+        F2[Explore Schema]
+        F3[View Documentation]
+        F4[Debug Errors]
+    end
+
+    PLAY --&gt; F1
+    INTRO --&gt; F2
+    DOCS --&gt; F3
+    PLAY --&gt; F4
+
+    style PLAY fill:#e3f2fd
+</div><h2 id="gateway-startup-flow">Gateway Startup Flow </h2>
+<div class="mermaid">sequenceDiagram
+    participant Main
+    participant App as NestJS App
+    participant Gateway as Apollo Gateway
+    participant Subgraphs
+
+    Main-&gt;&gt;App: Create Application
+    App-&gt;&gt;Gateway: Initialize Gateway
+    Gateway-&gt;&gt;Subgraphs: Fetch Schemas (SDL)
+    Subgraphs--&gt;&gt;Gateway: Return SDL
+    Gateway-&gt;&gt;Gateway: Compose Supergraph
+    Gateway-&gt;&gt;Gateway: Validate Schema
+    Gateway--&gt;&gt;App: Gateway Ready
+    App-&gt;&gt;App: Enable CORS
+    App-&gt;&gt;App: Start HTTP Server
+    App--&gt;&gt;Main: Server Running on Port 3000
+
+    Note over Main: Gateway accepting requests
+</div><h2 id="unified-graphql-schema">Unified GraphQL Schema </h2>
+<pre data-role="codeBlock" data-info="graphql" class="language-graphql graphql"><code><span class="token comment"># Composed Supergraph Schema (Auto-generated)</span>
+<span class="token keyword keyword-type">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token comment"># From Auth Service</span>
+  <span class="token attr-name">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">User</span>
+
+  <span class="token comment"># From Billing Service</span>
+  <span class="token attr-name">transactions</span><span class="token punctuation">(</span><span class="token attr-name">limit</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Transaction</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+  <span class="token attr-name">revenueStats</span><span class="token punctuation">:</span> <span class="token class-name">RevenueStats</span><span class="token operator">!</span>
+
+  <span class="token comment"># From Analytics Service</span>
+  <span class="token attr-name">analyticsStats</span><span class="token punctuation">:</span> <span class="token class-name">AnalyticsStats</span><span class="token operator">!</span>
+  <span class="token attr-name">recentActivity</span><span class="token punctuation">(</span><span class="token attr-name">limit</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">ActivityLog</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+
+  <span class="token comment"># From Compliance Service</span>
+  <span class="token attr-name">complianceStats</span><span class="token punctuation">:</span> <span class="token class-name">ComplianceStats</span><span class="token operator">!</span>
+  <span class="token attr-name">complianceChecks</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">ComplianceCheck</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+  <span class="token attr-name">auditLogs</span><span class="token punctuation">(</span><span class="token attr-name">limit</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">AuditLog</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-type">type</span> <span class="token class-name">Mutation</span> <span class="token punctuation">{</span>
+  <span class="token comment"># From Auth Service</span>
+  <span class="token attr-name">googleLogin</span><span class="token punctuation">(</span><span class="token attr-name">credential</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">AuthResponse</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Types from various services</span>
+<span class="token keyword keyword-type">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span>
+  <span class="token attr-name">email</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">roles</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+  <span class="token attr-name">permissions</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-type">type</span> <span class="token class-name">Transaction</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span>
+  <span class="token attr-name">customerName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">amount</span><span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span>
+  <span class="token attr-name">status</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+  <span class="token attr-name">date</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-type">type</span> <span class="token class-name">RevenueStats</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">totalRevenue</span><span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span>
+  <span class="token attr-name">monthlyGrowth</span><span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span>
+  <span class="token attr-name">pendingInvoices</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token operator">!</span>
+  <span class="token attr-name">nextPayoutDate</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># ... more types from other services</span>
+</code></pre><h2 id="key-design-decisions">Key Design Decisions </h2>
+<ol>
+<li><strong>Apollo Federation</strong>: Industry-standard for GraphQL composition</li>
+<li><strong>Managed Federation</strong>: Services register their schemas autonomously</li>
+<li><strong>No Schema Stitching</strong>: Federation provides better performance and type safety</li>
+<li><strong>Service List</strong>: Static configuration via environment variables</li>
+<li><strong>CORS Enabled</strong>: Allow cross-origin requests from all frontends</li>
+<li><strong>No Authentication Middleware</strong>: Authentication handled by individual services</li>
+<li><strong>Stateless Gateway</strong>: No business logic, only query routing</li>
+</ol>
+<h2 id="deployment-considerations">Deployment Considerations </h2>
+<ul>
+<li><strong>Scaling</strong>: Gateway can be horizontally scaled</li>
+<li><strong>Health Checks</strong>: Monitor gateway and subgraph health</li>
+<li><strong>Circuit Breakers</strong>: Prevent cascading failures</li>
+<li><strong>Rate Limiting</strong>: Protect against abuse</li>
+<li><strong>Load Balancing</strong>: Distribute traffic across gateway instances</li>
+</ul>
+<h2 id="future-enhancements">Future Enhancements </h2>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Add Apollo Studio for schema management</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Implement persisted queries</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Add distributed tracing (OpenTelemetry)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Implement query complexity analysis</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Add rate limiting per user/client</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Implement response compression</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Add query allow-listing for production</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Implement schema versioning</li>
+</ul>
+</div>
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,9 @@
+/* libs/design-tokens/src/lib/design-tokens/design-tokens.css */
+@import '../../../libs/design-tokens/src/lib/design-tokens/design-tokens.css';
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-bg);
+    color: var(--text-main);
+}

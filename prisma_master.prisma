@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Billing Models
+model Transaction {
+  id           String   @id @default(uuid())
+  customerId   String
+  customerName String
+  amount       Float
+  status       String
+  date         DateTime @default(now())
+}
+
+model Invoice {
+  id           String   @id @default(uuid())
+  customerId   String
+  amount       Float
+  status       String
+  dueDate      DateTime
+  createdAt    DateTime @default(now())
+}
+
+// Compliance Models
+model ComplianceCheck {
+  id        String   @id @default(uuid())
+  title     String
+  status    String   // COMPLIANT, NON_COMPLIANT, PENDING
+  category  String
+  lastCheck DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  user      String
+  timestamp DateTime @default(now())
+  status    String
+}
+
+// Analytics Models
+model Metric {
+  id        String   @id @default(uuid())
+  name      String
+  value     Float
+  timestamp DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  timestamp DateTime @default(now())
+}
+
+model SystemPerformance {
+  id           String   @id @default(uuid())
+  metricName   String
+  metricValue  Float
+  timestamp    DateTime @default(now())
+}

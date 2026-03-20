@@ -1,0 +1,759 @@
+<!DOCTYPE html><html><head>
+      <title>04-database-architecture</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/karpagavinayagam/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:////home/karpagavinayagam/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="database-architecture--service-layer">Database Architecture &amp; Service Layer </h1>
+<h2 id="overview">Overview </h2>
+<p>The Orion Enterprise platform uses a <strong>shared PostgreSQL database</strong> hosted on Neon, with Prisma ORM for type-safe database access across all microservices.</p>
+<h2 id="database-architecture-overview">Database Architecture Overview </h2>
+<div class="mermaid">graph TB
+    subgraph "Neon PostgreSQL Database"
+        DB[(neondb&lt;br/&gt;Shared Database)]
+
+        subgraph "Tables"
+            T1[AuthUser]
+            T2[Transaction]
+            T3[Invoice]
+            T4[ComplianceCheck]
+            T5[AuditLog]
+            T6[Metric]
+            T7[ActivityLog]
+            T8[SystemPerformance]
+        end
+    end
+
+    subgraph "Prisma Clients"
+        P1[Auth Service&lt;br/&gt;Prisma Client]
+        P2[Billing Service&lt;br/&gt;Prisma Client]
+        P3[Compliance Service&lt;br/&gt;Prisma Client]
+        P4[Analytics Service&lt;br/&gt;Prisma Client]
+        P5[User Service&lt;br/&gt;Prisma Client]
+    end
+
+    P1 --&gt;|Read/Write| T1
+    P2 --&gt;|Read/Write| T2
+    P2 --&gt;|Read/Write| T3
+    P3 --&gt;|Read/Write| T4
+    P3 --&gt;|Read/Write| T5
+    P4 --&gt;|Read/Write| T6
+    P4 --&gt;|Read/Write| T7
+    P4 --&gt;|Read/Write| T8
+    P5 --&gt;|Read/Write| T1
+
+    style DB fill:#fce4ec
+</div><h2 id="complete-database-schema-er-diagram">Complete Database Schema (ER Diagram) </h2>
+<div class="mermaid">erDiagram
+    AuthUser ||--o{ ActivityLog : "has"
+    AuthUser ||--o{ AuditLog : "performs"
+
+    AuthUser {
+        string id PK
+        string email UK
+        string name
+        string googleId UK
+        string[] roles
+        string[] permissions
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    Transaction {
+        string id PK
+        string customerId
+        string customerName
+        float amount
+        string status
+        datetime date
+    }
+
+    Invoice {
+        string id PK
+        string customerId
+        float amount
+        string status
+        datetime dueDate
+        datetime createdAt
+    }
+
+    ComplianceCheck {
+        string id PK
+        string title
+        string status
+        string category
+        datetime lastCheck
+    }
+
+    AuditLog {
+        string id PK
+        string action
+        string user
+        datetime timestamp
+        string status
+    }
+
+    Metric {
+        string id PK
+        string name
+        float value
+        datetime timestamp
+    }
+
+    ActivityLog {
+        string id PK
+        string userId FK
+        string action
+        datetime timestamp
+    }
+
+    SystemPerformance {
+        string id PK
+        string metricName
+        float metricValue
+        datetime timestamp
+    }
+</div><h2 id="master-schema-unified-prisma-schema">Master Schema (Unified Prisma Schema) </h2>
+<div class="mermaid">graph TB
+    subgraph "prisma_master.prisma"
+        GEN[Generator&lt;br/&gt;prisma-client-js]
+        DS[Datasource&lt;br/&gt;postgresql]
+
+        subgraph "Billing Models"
+            M1[Transaction Model]
+            M2[Invoice Model]
+        end
+
+        subgraph "Compliance Models"
+            M3[ComplianceCheck Model]
+            M4[AuditLog Model]
+        end
+
+        subgraph "Analytics Models"
+            M5[Metric Model]
+            M6[ActivityLog Model]
+            M7[SystemPerformance Model]
+        end
+
+        subgraph "Auth Models"
+            M8[AuthUser Model]
+        end
+    end
+
+    DS --&gt; M1
+    DS --&gt; M2
+    DS --&gt; M3
+    DS --&gt; M4
+    DS --&gt; M5
+    DS --&gt; M6
+    DS --&gt; M7
+    DS --&gt; M8
+
+    style DS fill:#e8f5e9
+</div><p><strong>Complete Prisma Schema:</strong></p>
+<pre data-role="codeBlock" data-info="prisma" class="language-prisma prisma"><code>generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Auth Models
+model AuthUser {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  name        String
+  googleId    String   @unique
+  roles       String[]
+  permissions String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Billing Models
+model Transaction {
+  id           String   @id @default(uuid())
+  customerId   String
+  customerName String
+  amount       Float
+  status       String
+  date         DateTime @default(now())
+}
+
+model Invoice {
+  id        String   @id @default(uuid())
+  customerId String
+  amount    Float
+  status    String
+  dueDate   DateTime
+  createdAt DateTime @default(now())
+}
+
+// Compliance Models
+model ComplianceCheck {
+  id        String   @id @default(uuid())
+  title     String
+  status    String   // COMPLIANT, NON_COMPLIANT, PENDING
+  category  String
+  lastCheck DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  user      String
+  timestamp DateTime @default(now())
+  status    String
+}
+
+// Analytics Models
+model Metric {
+  id        String   @id @default(uuid())
+  name      String
+  value     Float
+  timestamp DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  timestamp DateTime @default(now())
+}
+
+model SystemPerformance {
+  id          String   @id @default(uuid())
+  metricName  String
+  metricValue Float
+  timestamp   DateTime @default(now())
+}
+</code></pre><h2 id="service-to-database-mapping">Service-to-Database Mapping </h2>
+<div class="mermaid">graph TB
+    subgraph "Microservices"
+        AUTH[Auth Service]
+        USER[User Service]
+        BILL[Billing Service]
+        COMP[Compliance Service]
+        ANLY[Analytics Service]
+    end
+
+    subgraph "Database Tables"
+        T1[(AuthUser)]
+        T2[(Transaction)]
+        T3[(Invoice)]
+        T4[(ComplianceCheck)]
+        T5[(AuditLog)]
+        T6[(Metric)]
+        T7[(ActivityLog)]
+        T8[(SystemPerformance)]
+    end
+
+    AUTH -.-&gt;|No DB Access&lt;br/&gt;Stateless| AUTH
+    USER --&gt;|CRUD| T1
+    BILL --&gt;|CRUD| T2
+    BILL --&gt;|CRUD| T3
+    COMP --&gt;|CRUD| T4
+    COMP --&gt;|CRUD| T5
+    ANLY --&gt;|CRUD| T6
+    ANLY --&gt;|CRUD| T7
+    ANLY --&gt;|CRUD| T8
+
+    style AUTH fill:#fff3e0
+    style T1 fill:#e3f2fd
+    style T2 fill:#e3f2fd
+    style T3 fill:#e3f2fd
+    style T4 fill:#e3f2fd
+    style T5 fill:#e3f2fd
+    style T6 fill:#e3f2fd
+    style T7 fill:#e3f2fd
+    style T8 fill:#e3f2fd
+</div><h2 id="prisma-service-layer-architecture">Prisma Service Layer Architecture </h2>
+<div class="mermaid">classDiagram
+    class PrismaClient {
+        +$connect(): Promise~void~
+        +$disconnect(): Promise~void~
+        +$transaction(fn): Promise~T~
+        +$queryRaw(sql): Promise~any~
+        +transaction: TransactionDelegate
+        +invoice: InvoiceDelegate
+        +complianceCheck: ComplianceCheckDelegate
+        +auditLog: AuditLogDelegate
+        +metric: MetricDelegate
+        +activityLog: ActivityLogDelegate
+    }
+
+    class TransactionDelegate {
+        +findMany(args): Promise~Transaction[]~
+        +findUnique(args): Promise~Transaction~
+        +create(args): Promise~Transaction~
+        +update(args): Promise~Transaction~
+        +delete(args): Promise~Transaction~
+        +upsert(args): Promise~Transaction~
+    }
+
+    class BillingService {
+        -prisma: PrismaClient
+        +getTransactions(limit?): Promise~Transaction[]~
+        +getRevenueStats(): Promise~RevenueStats~
+        +createTransaction(data): Promise~Transaction~
+    }
+
+    class ComplianceService {
+        -prisma: PrismaClient
+        +getChecks(): Promise~ComplianceCheck[]~
+        +getStats(): Promise~ComplianceStats~
+        +getAuditLogs(limit?): Promise~AuditLog[]~
+    }
+
+    class AnalyticsService {
+        -prisma: PrismaClient
+        +getStats(): Promise~AnalyticsStats~
+        +getRecentActivity(limit?): Promise~ActivityLog[]~
+        +findAll(): Promise~Metric[]~
+    }
+
+    PrismaClient --&gt; TransactionDelegate
+    BillingService --&gt; PrismaClient
+    ComplianceService --&gt; PrismaClient
+    AnalyticsService --&gt; PrismaClient
+</div><h2 id="database-connection-flow">Database Connection Flow </h2>
+<div class="mermaid">sequenceDiagram
+    participant App as NestJS App
+    participant Module as Service Module
+    participant Prisma as PrismaService
+    participant Pool as Connection Pool
+    participant DB as Neon Database
+
+    App-&gt;&gt;Module: Initialize Module
+    Module-&gt;&gt;Prisma: Create PrismaService
+    Prisma-&gt;&gt;Prisma: new PrismaClient()
+
+    Note over Prisma: onModuleInit()
+    Prisma-&gt;&gt;Pool: $connect()
+    Pool-&gt;&gt;DB: Establish Connection Pool
+    DB--&gt;&gt;Pool: Connection Established
+    Pool--&gt;&gt;Prisma: Connected
+
+    Note over App: Application Ready
+
+    App-&gt;&gt;Prisma: Query Request
+    Prisma-&gt;&gt;Pool: Get Connection
+    Pool-&gt;&gt;DB: Execute Query
+    DB--&gt;&gt;Pool: Query Result
+    Pool--&gt;&gt;Prisma: Result
+    Prisma--&gt;&gt;App: Formatted Response
+
+    Note over App: Application Shutdown
+    App-&gt;&gt;Prisma: onModuleDestroy()
+    Prisma-&gt;&gt;Pool: $disconnect()
+    Pool-&gt;&gt;DB: Close Connections
+</div><h2 id="query-execution-flow">Query Execution Flow </h2>
+<div class="mermaid">graph TB
+    A[GraphQL Resolver] --&gt; B[Service Method]
+    B --&gt; C{Prisma Query}
+
+    C --&gt; D[Query Builder]
+    D --&gt; E[SQL Generation]
+    E --&gt; F[Connection Pool]
+    F --&gt; G[(Database)]
+
+    G --&gt; H[Raw Result]
+    H --&gt; I[Type Mapping]
+    I --&gt; J[Prisma Model Instance]
+    J --&gt; K[GraphQL Response]
+
+    style C fill:#e8f5e9
+    style G fill:#fce4ec
+</div><h2 id="billing-service-data-layer">Billing Service Data Layer </h2>
+<div class="mermaid">classDiagram
+    class BillingService {
+        -prisma: PrismaClient
+        +getTransactions(limit?: number): Promise~Transaction[]~
+        +getRevenueStats(): Promise~RevenueStats~
+    }
+
+    class Transaction {
+        +id: string
+        +customerId: string
+        +customerName: string
+        +amount: number
+        +status: string
+        +date: Date
+    }
+
+    class RevenueStats {
+        +totalRevenue: number
+        +monthlyGrowth: number
+        +pendingInvoices: number
+        +nextPayoutDate: string
+    }
+
+    BillingService --&gt; Transaction : queries
+    BillingService --&gt; RevenueStats : computes
+</div><p><strong>Example Prisma Query:</strong></p>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token comment">// Get all transactions</span>
+<span class="token keyword keyword-async">async</span> <span class="token function">getTransactions</span><span class="token punctuation">(</span>limit <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Transaction<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">findMany</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    take<span class="token operator">:</span> limit<span class="token punctuation">,</span>
+    orderBy<span class="token operator">:</span> <span class="token punctuation">{</span>
+      date<span class="token operator">:</span> <span class="token string">'desc'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Get revenue stats (computed from transactions and invoices)</span>
+<span class="token keyword keyword-async">async</span> <span class="token function">getRevenueStats</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>RevenueStats<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-const">const</span> transactions <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">findMany</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-const">const</span> invoices <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>invoice<span class="token punctuation">.</span><span class="token function">findMany</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-const">const</span> totalRevenue <span class="token operator">=</span> transactions<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>sum<span class="token punctuation">,</span> t<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> sum <span class="token operator">+</span> t<span class="token punctuation">.</span>amount<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-const">const</span> pendingInvoices <span class="token operator">=</span> invoices<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>i <span class="token operator">=&gt;</span> i<span class="token punctuation">.</span>status <span class="token operator">===</span> <span class="token string">'pending'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-return">return</span> <span class="token punctuation">{</span>
+    totalRevenue<span class="token punctuation">,</span>
+    monthlyGrowth<span class="token operator">:</span> <span class="token number">12.5</span><span class="token punctuation">,</span>
+    pendingInvoices<span class="token punctuation">,</span>
+    nextPayoutDate<span class="token operator">:</span> <span class="token string">'2026-03-01'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="analytics-service-data-layer">Analytics Service Data Layer </h2>
+<div class="mermaid">classDiagram
+    class AnalyticsService {
+        -prisma: PrismaClient
+        +getStats(): Promise~AnalyticsStats~
+        +getRecentActivity(limit?: number): Promise~ActivityLog[]~
+        +findAll(): Promise~Metric[]~
+    }
+
+    class AnalyticsStats {
+        +activeUsers: number
+        +totalRequests: number
+        +avgResponseTime: number
+        +errorRate: number
+    }
+
+    class ActivityLog {
+        +id: string
+        +userId: string
+        +action: string
+        +timestamp: Date
+    }
+
+    class Metric {
+        +id: string
+        +name: string
+        +value: number
+        +timestamp: Date
+    }
+
+    AnalyticsService --&gt; AnalyticsStats : computes
+    AnalyticsService --&gt; ActivityLog : queries
+    AnalyticsService --&gt; Metric : queries
+</div><h2 id="compliance-service-data-layer">Compliance Service Data Layer </h2>
+<div class="mermaid">classDiagram
+    class ComplianceService {
+        -prisma: PrismaClient
+        +getStats(): Promise~ComplianceStats~
+        +getChecks(): Promise~ComplianceCheck[]~
+        +getAuditLogs(limit?: number): Promise~AuditLog[]~
+    }
+
+    class ComplianceStats {
+        +complianceScore: number
+        +activePolicies: number
+        +recentViolations: number
+        +lastAudit: string
+    }
+
+    class ComplianceCheck {
+        +id: string
+        +title: string
+        +status: string
+        +category: string
+        +lastCheck: Date
+    }
+
+    class AuditLog {
+        +id: string
+        +action: string
+        +user: string
+        +timestamp: Date
+        +status: string
+    }
+
+    ComplianceService --&gt; ComplianceStats : computes
+    ComplianceService --&gt; ComplianceCheck : queries
+    ComplianceService --&gt; AuditLog : queries
+</div><h2 id="database-seeding-strategy">Database Seeding Strategy </h2>
+<div class="mermaid">graph TB
+    A[DATABASE_URL&lt;br/&gt;Environment Variable] --&gt; B[Master Schema Push]
+    B --&gt; C{prisma db push&lt;br/&gt;--schema=prisma_master.prisma}
+
+    C --&gt; D[Create All Tables]
+
+    D --&gt; E[Seed Billing Data]
+    D --&gt; F[Seed Compliance Data]
+    D --&gt; G[Seed Analytics Data]
+
+    E --&gt; H[Transaction Records]
+    E --&gt; I[Invoice Records]
+
+    F --&gt; J[ComplianceCheck Records]
+    F --&gt; K[AuditLog Records]
+
+    G --&gt; L[Metric Records]
+    G --&gt; M[ActivityLog Records]
+    G --&gt; N[SystemPerformance Records]
+
+    style C fill:#e8f5e9
+    style D fill:#fff3e0
+</div><p><strong>Seed Script Example (Billing):</strong></p>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token comment">// apps/billing-service/prisma/seed.ts</span>
+<span class="token keyword keyword-import">import</span> <span class="token punctuation">{</span> PrismaClient <span class="token punctuation">}</span> <span class="token keyword keyword-from">from</span> <span class="token string">'../src/generated-client'</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-const">const</span> prisma <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">PrismaClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-async">async</span> <span class="token keyword keyword-function">function</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Seed Transactions</span>
+  <span class="token keyword keyword-await">await</span> prisma<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">upsert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    where<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token string">'trans-001'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    update<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    create<span class="token operator">:</span> <span class="token punctuation">{</span>
+      id<span class="token operator">:</span> <span class="token string">'trans-001'</span><span class="token punctuation">,</span>
+      customerId<span class="token operator">:</span> <span class="token string">'cust-001'</span><span class="token punctuation">,</span>
+      customerName<span class="token operator">:</span> <span class="token string">'Acme Corporation'</span><span class="token punctuation">,</span>
+      amount<span class="token operator">:</span> <span class="token number">50000</span><span class="token punctuation">,</span>
+      status<span class="token operator">:</span> <span class="token string">'completed'</span><span class="token punctuation">,</span>
+      date<span class="token operator">:</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2026-01-15'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Seed Invoices</span>
+  <span class="token keyword keyword-await">await</span> prisma<span class="token punctuation">.</span>invoice<span class="token punctuation">.</span><span class="token function">upsert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    where<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token string">'inv-001'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    update<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    create<span class="token operator">:</span> <span class="token punctuation">{</span>
+      id<span class="token operator">:</span> <span class="token string">'inv-001'</span><span class="token punctuation">,</span>
+      customerId<span class="token operator">:</span> <span class="token string">'cust-001'</span><span class="token punctuation">,</span>
+      amount<span class="token operator">:</span> <span class="token number">25000</span><span class="token punctuation">,</span>
+      status<span class="token operator">:</span> <span class="token string">'pending'</span><span class="token punctuation">,</span>
+      dueDate<span class="token operator">:</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'2026-03-01'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">finally</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> prisma<span class="token punctuation">.</span><span class="token function">$disconnect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><h2 id="connection-pooling-configuration">Connection Pooling Configuration </h2>
+<div class="mermaid">graph TB
+    subgraph "Neon PostgreSQL"
+        POOL[Connection Pool&lt;br/&gt;Max: 100 connections]
+    end
+
+    subgraph "Microservices"
+        S1[Auth Service&lt;br/&gt;Pool Size: 5]
+        S2[Billing Service&lt;br/&gt;Pool Size: 10]
+        S3[Analytics Service&lt;br/&gt;Pool Size: 10]
+        S4[Compliance Service&lt;br/&gt;Pool Size: 10]
+        S5[User Service&lt;br/&gt;Pool Size: 5]
+    end
+
+    S1 -.-&gt;|5 connections| POOL
+    S2 -.-&gt;|10 connections| POOL
+    S3 -.-&gt;|10 connections| POOL
+    S4 -.-&gt;|10 connections| POOL
+    S5 -.-&gt;|5 connections| POOL
+
+    style POOL fill:#fce4ec
+</div><p><strong>Prisma Connection Configuration:</strong></p>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token comment">// DATABASE_URL format</span>
+postgresql<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token constant">USER</span><span class="token operator">:</span><span class="token constant">PASSWORD</span>@<span class="token constant">HOST</span><span class="token operator">:</span><span class="token constant">PORT</span><span class="token operator">/</span><span class="token constant">DATABASE</span><span class="token operator">?</span>connection_limit<span class="token operator">=</span><span class="token number">10</span><span class="token operator">&amp;</span>pool_timeout<span class="token operator">=</span><span class="token number">20</span>
+</code></pre><h2 id="transaction-management">Transaction Management </h2>
+<div class="mermaid">sequenceDiagram
+    participant Service
+    participant Prisma
+    participant DB
+
+    Service-&gt;&gt;Prisma: $transaction([op1, op2])
+    Prisma-&gt;&gt;DB: BEGIN TRANSACTION
+
+    Prisma-&gt;&gt;DB: Execute Operation 1
+    DB--&gt;&gt;Prisma: Success
+
+    Prisma-&gt;&gt;DB: Execute Operation 2
+    DB--&gt;&gt;Prisma: Success
+
+    Prisma-&gt;&gt;DB: COMMIT
+    DB--&gt;&gt;Prisma: Committed
+    Prisma--&gt;&gt;Service: Transaction Success
+
+    Note over Service,DB: If any operation fails,&lt;br/&gt;entire transaction rolls back
+</div><p><strong>Transaction Example:</strong></p>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token keyword keyword-async">async</span> <span class="token function">createInvoiceWithTransaction</span><span class="token punctuation">(</span>data<span class="token operator">:</span> CreateInvoiceDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span><span class="token function">$transaction</span><span class="token punctuation">(</span><span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span>tx<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create invoice</span>
+    <span class="token keyword keyword-const">const</span> invoice <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> tx<span class="token punctuation">.</span>invoice<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      data<span class="token operator">:</span> <span class="token punctuation">{</span>
+        customerId<span class="token operator">:</span> data<span class="token punctuation">.</span>customerId<span class="token punctuation">,</span>
+        amount<span class="token operator">:</span> data<span class="token punctuation">.</span>amount<span class="token punctuation">,</span>
+        status<span class="token operator">:</span> <span class="token string">'pending'</span><span class="token punctuation">,</span>
+        dueDate<span class="token operator">:</span> data<span class="token punctuation">.</span>dueDate<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Create transaction record</span>
+    <span class="token keyword keyword-await">await</span> tx<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      data<span class="token operator">:</span> <span class="token punctuation">{</span>
+        customerId<span class="token operator">:</span> data<span class="token punctuation">.</span>customerId<span class="token punctuation">,</span>
+        customerName<span class="token operator">:</span> data<span class="token punctuation">.</span>customerName<span class="token punctuation">,</span>
+        amount<span class="token operator">:</span> data<span class="token punctuation">.</span>amount<span class="token punctuation">,</span>
+        status<span class="token operator">:</span> <span class="token string">'pending'</span><span class="token punctuation">,</span>
+        date<span class="token operator">:</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> invoice<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="query-optimization-strategies">Query Optimization Strategies </h2>
+<ol>
+<li><strong>Select Only Needed Fields:</strong></li>
+</ol>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">findMany</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  select<span class="token operator">:</span> <span class="token punctuation">{</span>
+    id<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    customerName<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    amount<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><ol start="2">
+<li><strong>Use Pagination:</strong></li>
+</ol>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">findMany</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  take<span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  skip<span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><ol start="3">
+<li><strong>Add Indexes</strong> (in Prisma schema):</li>
+</ol>
+<pre data-role="codeBlock" data-info="prisma" class="language-prisma prisma"><code>model Transaction {
+  id       String @id @default(uuid())
+  date     DateTime @default(now())
+  status   String
+
+  @@index([status])
+  @@index([date])
+}
+</code></pre><ol start="4">
+<li><strong>Batch Operations:</strong></li>
+</ol>
+<pre data-role="codeBlock" data-info="typescript" class="language-typescript typescript"><code><span class="token keyword keyword-await">await</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span><span class="token function">createMany</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  data<span class="token operator">:</span> transactions<span class="token punctuation">,</span>
+  skipDuplicates<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><h2 id="data-access-patterns">Data Access Patterns </h2>
+<div class="mermaid">graph TB
+    A[GraphQL Query] --&gt; B{Data Access Pattern}
+
+    B --&gt;|Single Record| C[findUnique]
+    B --&gt;|Multiple Records| D[findMany]
+    B --&gt;|Aggregation| E[aggregate/count]
+    B --&gt;|Raw SQL| F[queryRaw]
+
+    C --&gt; G[(Database)]
+    D --&gt; G
+    E --&gt; G
+    F --&gt; G
+
+    style B fill:#e8f5e9
+    style G fill:#fce4ec
+</div><h2 id="key-design-decisions">Key Design Decisions </h2>
+<ol>
+<li><strong>Shared Database</strong>: Cost-effective for MVP, simpler data consistency</li>
+<li><strong>Neon PostgreSQL</strong>: Serverless, auto-scaling, branching support</li>
+<li><strong>Prisma ORM</strong>: Type safety, migrations, excellent DX</li>
+<li><strong>Service-Specific Schemas</strong>: Each service has its own Prisma schema pointing to specific tables</li>
+<li><strong>Master Schema</strong>: Used for initial setup and seeding</li>
+<li><strong>Connection Pooling</strong>: Optimized per-service connection limits</li>
+<li><strong>No ORMs in Auth Service</strong>: Stateless, no database dependency</li>
+</ol>
+<h2 id="migration-strategy">Migration Strategy </h2>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Generate Prisma Client</span>
+npx prisma generate <span class="token parameter variable">--schema</span><span class="token operator">=</span>apps/billing-service/prisma/schema.prisma
+
+<span class="token comment"># Push schema to database (development)</span>
+<span class="token assign-left variable">DATABASE_URL</span><span class="token operator">=</span><span class="token string">"..."</span> npx prisma db push <span class="token parameter variable">--schema</span><span class="token operator">=</span>prisma_master.prisma
+
+<span class="token comment"># Run migrations (production)</span>
+<span class="token assign-left variable">DATABASE_URL</span><span class="token operator">=</span><span class="token string">"..."</span> npx prisma migrate deploy
+</code></pre>
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>

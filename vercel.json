@@ -1,0 +1,16 @@
+{
+    "git": {
+        "ignoreCommand": "node scripts/check-affected.js"
+    },
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Cross-Origin-Opener-Policy",
+                    "value": "same-origin-allow-popups"
+                }
+            ]
+        }
+    ]
+}

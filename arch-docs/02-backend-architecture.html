@@ -1,0 +1,566 @@
+<!DOCTYPE html><html><head>
+      <title>02-backend-architecture</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/karpagavinayagam/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:////home/karpagavinayagam/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="backend-microservices-architecture">Backend Microservices Architecture </h1>
+<h2 id="overview">Overview </h2>
+<p>The Orion Enterprise platform uses a microservices architecture with NestJS and GraphQL, following Domain-Driven Design (DDD) principles.</p>
+<h2 id="microservices-component-diagram">Microservices Component Diagram </h2>
+<div class="mermaid">graph TB
+    subgraph "API Gateway"
+        GW[Apollo Federation Gateway&lt;br/&gt;@apollo/gateway&lt;br/&gt;Port 3000]
+    end
+
+    subgraph "Auth Domain"
+        AUTH[Auth Service&lt;br/&gt;Port 3001]
+        AUTH_RES[Auth Resolver]
+        AUTH_SVC[Auth Service]
+        AUTH_ENT[User Entity]
+    end
+
+    subgraph "User Domain"
+        USER[User Service&lt;br/&gt;Port 3002]
+        USER_RES[User Resolver]
+        USER_SVC[User Service]
+        USER_ENT[User Entity]
+    end
+
+    subgraph "Billing Domain"
+        BILL[Billing Service&lt;br/&gt;Port 3006]
+        BILL_RES[Billing Resolver]
+        BILL_SVC[Billing Service]
+        BILL_ENT1[Transaction Entity]
+        BILL_ENT2[Invoice Entity]
+    end
+
+    subgraph "Analytics Domain"
+        ANLY[Analytics Service&lt;br/&gt;Port 3004]
+        ANLY_RES[Analytics Resolver]
+        ANLY_SVC[Analytics Service]
+        ANLY_ENT1[Metric Entity]
+        ANLY_ENT2[AnalyticsStats Entity]
+        ANLY_ENT3[ActivityLog Entity]
+    end
+
+    subgraph "Compliance Domain"
+        COMP[Compliance Service&lt;br/&gt;Port 3007]
+        COMP_RES[Compliance Resolver]
+        COMP_SVC[Compliance Service]
+        COMP_ENT1[ComplianceCheck Entity]
+        COMP_ENT2[AuditLog Entity]
+        COMP_ENT3[ComplianceStats Entity]
+    end
+
+    subgraph "Notification Domain"
+        NOTIF[Notification Service&lt;br/&gt;Port 3005&lt;br/&gt;WebSocket Support]
+        NOTIF_GW[Notification Gateway]
+        NOTIF_SVC[Notification Service]
+    end
+
+    GW --&gt;|Federated Query| AUTH
+    GW --&gt;|Federated Query| USER
+    GW --&gt;|Federated Query| BILL
+    GW --&gt;|Federated Query| ANLY
+    GW --&gt;|Federated Query| COMP
+    GW --&gt;|Federated Query| NOTIF
+
+    AUTH --&gt; AUTH_RES
+    AUTH_RES --&gt; AUTH_SVC
+    AUTH_SVC --&gt; AUTH_ENT
+
+    USER --&gt; USER_RES
+    USER_RES --&gt; USER_SVC
+    USER_SVC --&gt; USER_ENT
+
+    BILL --&gt; BILL_RES
+    BILL_RES --&gt; BILL_SVC
+    BILL_SVC --&gt; BILL_ENT1
+    BILL_SVC --&gt; BILL_ENT2
+
+    ANLY --&gt; ANLY_RES
+    ANLY_RES --&gt; ANLY_SVC
+    ANLY_SVC --&gt; ANLY_ENT1
+    ANLY_SVC --&gt; ANLY_ENT2
+    ANLY_SVC --&gt; ANLY_ENT3
+
+    COMP --&gt; COMP_RES
+    COMP_RES --&gt; COMP_SVC
+    COMP_SVC --&gt; COMP_ENT1
+    COMP_SVC --&gt; COMP_ENT2
+    COMP_SVC --&gt; COMP_ENT3
+
+    NOTIF --&gt; NOTIF_GW
+    NOTIF_GW --&gt; NOTIF_SVC
+
+    style GW fill:#e8f5e9
+    style AUTH fill:#fff3e0
+    style USER fill:#fff3e0
+    style BILL fill:#fff3e0
+    style ANLY fill:#fff3e0
+    style COMP fill:#fff3e0
+    style NOTIF fill:#e1f5fe
+</div><h2 id="nestjs-service-structure">NestJS Service Structure </h2>
+<div class="mermaid">graph TB
+    subgraph "Service Layer Architecture"
+        MOD[NestJS Module&lt;br/&gt;@Module decorator]
+        CON[Controller Layer&lt;br/&gt;HTTP/GraphQL endpoints]
+        RES[Resolver Layer&lt;br/&gt;GraphQL resolvers]
+        SVC[Service Layer&lt;br/&gt;Business logic]
+        REPO[Repository/Prisma&lt;br/&gt;Data access]
+        ENT[Entity Layer&lt;br/&gt;Type definitions]
+        DTO[DTO Layer&lt;br/&gt;Data Transfer Objects]
+    end
+
+    MOD --&gt; CON
+    MOD --&gt; RES
+    MOD --&gt; SVC
+    RES --&gt; SVC
+    CON --&gt; SVC
+    SVC --&gt; REPO
+    SVC --&gt; ENT
+    RES --&gt; DTO
+    CON --&gt; DTO
+
+    style MOD fill:#e3f2fd
+    style RES fill:#fff3e0
+    style SVC fill:#e8f5e9
+    style REPO fill:#fce4ec
+</div><h2 id="service-communication-pattern">Service Communication Pattern </h2>
+<div class="mermaid">sequenceDiagram
+    participant Client
+    participant Gateway as API Gateway
+    participant Auth as Auth Service
+    participant Billing as Billing Service
+    participant DB as Database
+
+    Client-&gt;&gt;Gateway: GraphQL Query&lt;br/&gt;{user, transactions}
+
+    Note over Gateway: Query Planning&lt;br/&gt;Splits federated query
+
+    par Parallel Subgraph Queries
+        Gateway-&gt;&gt;Auth: Query User
+        Auth-&gt;&gt;DB: SELECT from AuthUser
+        DB--&gt;&gt;Auth: User Data
+        Auth--&gt;&gt;Gateway: User Response
+    and
+        Gateway-&gt;&gt;Billing: Query Transactions
+        Billing-&gt;&gt;DB: SELECT from Transaction
+        DB--&gt;&gt;Billing: Transaction Data
+        Billing--&gt;&gt;Gateway: Transaction Response
+    end
+
+    Gateway-&gt;&gt;Gateway: Merge Responses
+    Gateway--&gt;&gt;Client: Unified GraphQL Response
+</div><h2 id="graphql-schema-federation">GraphQL Schema Federation </h2>
+<div class="mermaid">graph LR
+    subgraph "Federated Schema"
+        SUPER[Supergraph Schema&lt;br/&gt;Composed from all subgraphs]
+    end
+
+    subgraph "Subgraph Schemas"
+        AUTH_S[Auth Subgraph&lt;br/&gt;@key directive on User]
+        USER_S[User Subgraph&lt;br/&gt;@extends User]
+        BILL_S[Billing Subgraph&lt;br/&gt;Transaction, Invoice types]
+        ANLY_S[Analytics Subgraph&lt;br/&gt;Metric, Stats types]
+        COMP_S[Compliance Subgraph&lt;br/&gt;ComplianceCheck types]
+    end
+
+    AUTH_S --&gt; SUPER
+    USER_S --&gt; SUPER
+    BILL_S --&gt; SUPER
+    ANLY_S --&gt; SUPER
+    COMP_S --&gt; SUPER
+
+    style SUPER fill:#e8f5e9
+</div><h2 id="detailed-service-breakdown">Detailed Service Breakdown </h2>
+<h3 id="1-auth-service-port-3001">1. Auth Service (Port 3001) </h3>
+<div class="mermaid">classDiagram
+    class AuthModule {
+        +imports: JwtModule, ConfigModule
+        +providers: AuthService, AuthResolver
+        +exports: AuthService
+    }
+
+    class AuthResolver {
+        +googleLogin(credential: String): AuthResponse
+    }
+
+    class AuthService {
+        -jwtService: JwtService
+        +googleLogin(credential: string): Promise~AuthResponse~
+        +validateUser(payload: any): Promise~User~
+    }
+
+    class AuthResponse {
+        +accessToken: string
+        +user: User
+    }
+
+    class User {
+        +id: string
+        +email: string
+        +name: string
+        +roles: string[]
+        +permissions: string[]
+    }
+
+    AuthModule --&gt; AuthResolver
+    AuthModule --&gt; AuthService
+    AuthResolver --&gt; AuthService
+    AuthService --&gt; AuthResponse
+    AuthResponse --&gt; User
+</div><p><strong>Technologies:</strong></p>
+<ul>
+<li>NestJS + GraphQL Code-First</li>
+<li>JWT for token generation</li>
+<li>Google OAuth verification (stateless)</li>
+<li>No database dependency (stateless auth)</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>apps/auth-service/
+├── src/
+│   ├── app/
+│   │   ├── app.module.ts          # Main module
+│   │   └── auth/
+│   │       ├── auth.resolver.ts   # GraphQL resolver
+│   │       ├── auth.service.ts    # Business logic
+│   │       └── dto/
+│   │           └── auth-response.dto.ts
+│   └── main.ts                     # Bootstrap
+</code></pre><h3 id="2-billing-service-port-3006">2. Billing Service (Port 3006) </h3>
+<div class="mermaid">classDiagram
+    class BillingModule {
+        +imports: GraphQLModule, PrismaModule
+        +providers: BillingService, BillingResolver
+    }
+
+    class BillingResolver {
+        +getTransactions(limit?: number): Transaction[]
+        +getRevenueStats(): RevenueStats
+    }
+
+    class BillingService {
+        -prisma: PrismaClient
+        +getTransactions(limit?: number): Promise~Transaction[]~
+        +getRevenueStats(): Promise~RevenueStats~
+    }
+
+    class Transaction {
+        +id: string
+        +customerName: string
+        +amount: number
+        +status: string
+        +date: DateTime
+    }
+
+    class RevenueStats {
+        +totalRevenue: number
+        +monthlyGrowth: number
+        +pendingInvoices: number
+        +nextPayoutDate: string
+    }
+
+    BillingModule --&gt; BillingResolver
+    BillingModule --&gt; BillingService
+    BillingResolver --&gt; BillingService
+    BillingService --&gt; Transaction
+    BillingService --&gt; RevenueStats
+</div><p><strong>Database Schema (Prisma):</strong></p>
+<pre data-role="codeBlock" data-info="prisma" class="language-prisma prisma"><code>model Transaction {
+  id           String   @id @default(uuid())
+  customerId   String
+  customerName String
+  amount       Float
+  status       String
+  date         DateTime @default(now())
+}
+
+model Invoice {
+  id           String   @id @default(uuid())
+  customerId   String
+  amount       Float
+  status       String
+  dueDate      DateTime
+  createdAt    DateTime @default(now())
+}
+</code></pre><h3 id="3-analytics-service-port-3004">3. Analytics Service (Port 3004) </h3>
+<div class="mermaid">classDiagram
+    class AnalyticsModule {
+        +imports: GraphQLModule, PrismaModule
+        +providers: AnalyticsService, AnalyticsResolver
+    }
+
+    class AnalyticsResolver {
+        +analyticsStats(): AnalyticsStats
+        +recentActivity(limit?: number): ActivityLog[]
+        +analyticsMetrics(): AnalyticsMetric[]
+    }
+
+    class AnalyticsService {
+        -prisma: PrismaClient
+        +getStats(): Promise~AnalyticsStats~
+        +getRecentActivity(limit?: number): Promise~ActivityLog[]~
+        +findAll(): Promise~AnalyticsMetric[]~
+    }
+
+    class AnalyticsStats {
+        +activeUsers: number
+        +totalRequests: number
+        +avgResponseTime: number
+        +errorRate: number
+    }
+
+    class ActivityLog {
+        +id: string
+        +userId: string
+        +action: string
+        +timestamp: DateTime
+    }
+
+    class AnalyticsMetric {
+        +id: string
+        +name: string
+        +value: number
+        +timestamp: DateTime
+    }
+
+    AnalyticsModule --&gt; AnalyticsResolver
+    AnalyticsModule --&gt; AnalyticsService
+    AnalyticsResolver --&gt; AnalyticsService
+    AnalyticsService --&gt; AnalyticsStats
+    AnalyticsService --&gt; ActivityLog
+    AnalyticsService --&gt; AnalyticsMetric
+</div><h3 id="4-compliance-service-port-3007">4. Compliance Service (Port 3007) </h3>
+<div class="mermaid">classDiagram
+    class ComplianceModule {
+        +imports: GraphQLModule, PrismaModule
+        +providers: ComplianceService, ComplianceResolver
+    }
+
+    class ComplianceResolver {
+        +complianceStats(): ComplianceStats
+        +complianceChecks(): ComplianceCheck[]
+        +auditLogs(limit?: number): AuditLog[]
+    }
+
+    class ComplianceService {
+        -prisma: PrismaClient
+        +getStats(): Promise~ComplianceStats~
+        +getChecks(): Promise~ComplianceCheck[]~
+        +getAuditLogs(limit?: number): Promise~AuditLog[]~
+    }
+
+    class ComplianceStats {
+        +complianceScore: number
+        +activePolicies: number
+        +recentViolations: number
+        +lastAudit: string
+    }
+
+    class ComplianceCheck {
+        +id: string
+        +title: string
+        +status: string
+        +category: string
+        +lastCheck: DateTime
+    }
+
+    class AuditLog {
+        +id: string
+        +action: string
+        +user: string
+        +timestamp: DateTime
+        +status: string
+    }
+
+    ComplianceModule --&gt; ComplianceResolver
+    ComplianceModule --&gt; ComplianceService
+    ComplianceResolver --&gt; ComplianceService
+    ComplianceService --&gt; ComplianceStats
+    ComplianceService --&gt; ComplianceCheck
+    ComplianceService --&gt; AuditLog
+</div><h3 id="5-notification-service-port-3005">5. Notification Service (Port 3005) </h3>
+<div class="mermaid">graph TB
+    subgraph "Notification Service Architecture"
+        WS[WebSocket Gateway&lt;br/&gt;@WebSocketGateway]
+        SVC[Notification Service]
+        STORE[In-Memory Notification Store]
+    end
+
+    subgraph "Client Connections"
+        C1[Client 1]
+        C2[Client 2]
+        C3[Client 3]
+    end
+
+    C1 &lt;--&gt;|Socket.IO| WS
+    C2 &lt;--&gt;|Socket.IO| WS
+    C3 &lt;--&gt;|Socket.IO| WS
+
+    WS --&gt; SVC
+    SVC --&gt; STORE
+
+    style WS fill:#e1f5fe
+    style SVC fill:#fff3e0
+</div><p><strong>WebSocket Events:</strong></p>
+<ul>
+<li><code>connection</code>: Client connects</li>
+<li><code>notification</code>: Server pushes notification</li>
+<li><code>disconnect</code>: Client disconnects</li>
+</ul>
+<h2 id="service-startup-flow">Service Startup Flow </h2>
+<div class="mermaid">sequenceDiagram
+    participant Main
+    participant App as NestFactory
+    participant Module as AppModule
+    participant Prisma as PrismaService
+    participant GraphQL as GraphQLModule
+    participant Server as HTTP Server
+
+    Main-&gt;&gt;App: Create Nest Application
+    App-&gt;&gt;Module: Initialize AppModule
+    Module-&gt;&gt;Prisma: Initialize PrismaService
+    Prisma-&gt;&gt;Prisma: Connect to Database
+    Module-&gt;&gt;GraphQL: Initialize GraphQL Module
+    GraphQL-&gt;&gt;GraphQL: Generate Schema
+    App-&gt;&gt;Server: Listen on Port
+    Server--&gt;&gt;Main: Application Ready
+
+    Note over Server: Service is now&lt;br/&gt;accepting requests
+</div><h2 id="environment-configuration">Environment Configuration </h2>
+<p>Each service requires these environment variables:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Database</span>
+<span class="token assign-left variable">DATABASE_URL</span><span class="token operator">=</span><span class="token string">"postgresql://..."</span>
+
+<span class="token comment"># Service-specific</span>
+<span class="token assign-left variable">PORT</span><span class="token operator">=</span><span class="token number">3001</span>                    <span class="token comment"># Service port</span>
+<span class="token assign-left variable">AUTH_SECRET</span><span class="token operator">=</span><span class="token string">"xxx"</span>            <span class="token comment"># JWT secret (auth-service only)</span>
+<span class="token assign-left variable">GOOGLE_CLIENT_ID</span><span class="token operator">=</span><span class="token string">"xxx"</span>       <span class="token comment"># Google OAuth (auth-service only)</span>
+
+<span class="token comment"># API Gateway (gateway service only)</span>
+<span class="token assign-left variable">AUTH_SERVICE_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:3001/graphql"</span>
+<span class="token assign-left variable">USER_SERVICE_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:3002/graphql"</span>
+<span class="token assign-left variable">BILLING_SERVICE_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:3006/graphql"</span>
+<span class="token assign-left variable">ANALYTICS_SERVICE_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:3004/graphql"</span>
+<span class="token assign-left variable">COMPLIANCE_SERVICE_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:3007/graphql"</span>
+<span class="token assign-left variable">NOTIFICATION_SERVICE_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:3005/graphql"</span>
+</code></pre><h2 id="inter-service-communication">Inter-Service Communication </h2>
+<div class="mermaid">graph LR
+    A[Client Request] --&gt; B{API Gateway}
+    B --&gt;|Auth Query| C[Auth Service]
+    B --&gt;|User Query| D[User Service]
+    B --&gt;|Billing Query| E[Billing Service]
+    B --&gt;|Analytics Query| F[Analytics Service]
+    B --&gt;|Compliance Query| G[Compliance Service]
+
+    C -.-&gt;|Stateless| H[No DB]
+    D --&gt;|Prisma| I[(Database)]
+    E --&gt;|Prisma| I
+    F --&gt;|Prisma| I
+    G --&gt;|Prisma| I
+
+    style B fill:#e8f5e9
+    style I fill:#fce4ec
+</div><h2 id="error-handling-strategy">Error Handling Strategy </h2>
+<div class="mermaid">graph TB
+    A[Incoming Request] --&gt; B{Request Validation}
+    B --&gt;|Invalid| C[400 Bad Request]
+    B --&gt;|Valid| D{Business Logic}
+    D --&gt;|Success| E[200 OK Response]
+    D --&gt;|Business Error| F[400 Business Error]
+    D --&gt;|Database Error| G{Retry Logic}
+    G --&gt;|Success| E
+    G --&gt;|Fail| H[500 Database Error]
+    D --&gt;|Unexpected Error| I[500 Internal Error]
+
+    style E fill:#c8e6c9
+    style C fill:#ffcdd2
+    style F fill:#ffcdd2
+    style H fill:#ffcdd2
+    style I fill:#ffcdd2
+</div><h2 id="key-design-decisions">Key Design Decisions </h2>
+<ol>
+<li><strong>Stateless Auth Service</strong>: No database dependency, validates Google tokens directly</li>
+<li><strong>Shared Database</strong>: Cost-effective for MVP, services access different tables</li>
+<li><strong>GraphQL Federation</strong>: Single unified API, automatic schema composition</li>
+<li><strong>NestJS Framework</strong>: Type safety, dependency injection, decorators</li>
+<li><strong>Prisma ORM</strong>: Type-safe database access, migrations, code generation</li>
+</ol>
+<h2 id="performance-optimizations">Performance Optimizations </h2>
+<ul>
+<li><strong>Connection Pooling</strong>: Prisma connection pooling for database efficiency</li>
+<li><strong>Query Optimization</strong>: Efficient Prisma queries with select/include</li>
+<li><strong>Caching</strong>: In-memory caching for frequently accessed data</li>
+<li><strong>Lazy Loading</strong>: Module lazy loading in NestJS</li>
+<li><strong>Horizontal Scaling</strong>: Stateless services can scale horizontally</li>
+</ul>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>

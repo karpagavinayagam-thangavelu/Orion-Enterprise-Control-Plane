@@ -1,0 +1,116 @@
+services:
+  # API Gateway
+  - type: web
+    name: orion-api-gateway
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build api-gateway --prod
+    startCommand: node dist/apps/api-gateway/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: AUTH_SERVICE_URL
+        sync: false
+      - key: USER_SERVICE_URL
+        sync: false
+      - key: FEATURE_SERVICE_URL
+        sync: false
+      - key: ANALYTICS_SERVICE_URL
+        sync: false
+      - key: NOTIFICATION_SERVICE_URL
+        sync: false
+      - key: BILLING_SERVICE_URL
+        sync: false
+      - key: COMPLIANCE_SERVICE_URL
+        sync: false
+
+  # Auth Service
+  - type: web
+    name: orion-auth-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build auth-service --prod && npx prisma generate --schema=apps/auth-service/prisma/schema.prisma
+    startCommand: npx prisma db push --schema=apps/auth-service/prisma/schema.prisma --accept-data-loss && node dist/apps/auth-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: AUTH_SECRET
+        sync: false
+
+  # User Service
+  - type: web
+    name: orion-user-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build user-service --prod && npx prisma generate --schema=apps/user-service/prisma/schema.prisma
+    startCommand: npx prisma db push --schema=apps/user-service/prisma/schema.prisma --accept-data-loss && node dist/apps/user-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+
+  # Feature Service
+  - type: web
+    name: orion-feature-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build feature-service --prod && npx prisma generate --schema=apps/feature-service/prisma/schema.prisma
+    startCommand: npx prisma db push --schema=apps/feature-service/prisma/schema.prisma --accept-data-loss && node dist/apps/feature-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+
+  # Analytics Service
+  - type: web
+    name: orion-analytics-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build analytics-service --prod && npx prisma generate --schema=apps/analytics-service/prisma/schema.prisma
+    startCommand: npx prisma db push --schema=apps/analytics-service/prisma/schema.prisma --accept-data-loss && node dist/apps/analytics-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+
+  # Billing Service
+  - type: web
+    name: orion-billing-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build billing-service --prod && npx prisma generate --schema=apps/billing-service/prisma/schema.prisma
+    startCommand: npx prisma db push --schema=apps/billing-service/prisma/schema.prisma --accept-data-loss && node dist/apps/billing-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+
+  # Compliance Service
+  - type: web
+    name: orion-compliance-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build compliance-service --prod && npx prisma generate --schema=apps/compliance-service/prisma/schema.prisma
+    startCommand: npx prisma db push --schema=apps/compliance-service/prisma/schema.prisma --accept-data-loss && node dist/apps/compliance-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+
+  # Notification Service
+  - type: web
+    name: orion-notification-service
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npx nx build notification-service --prod
+    startCommand: node dist/apps/notification-service/main.js
+    envVars:
+      - key: PORT
+        value: 10000

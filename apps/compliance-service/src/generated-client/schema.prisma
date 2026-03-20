@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ComplianceCheck {
+  id        String   @id @default(uuid())
+  title     String
+  status    String   // COMPLIANT, NON_COMPLIANT, PENDING
+  category  String
+  lastCheck DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  user      String
+  timestamp DateTime @default(now())
+  status    String
+}

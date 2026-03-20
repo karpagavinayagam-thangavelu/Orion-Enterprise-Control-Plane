@@ -1,0 +1,43 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@orion/auth": ["libs/auth/src/index.ts"],
+      "@orion/rbac": ["libs/rbac/src/index.ts"],
+      "@orion/ui": ["libs/ui/src/index.ts"],
+      "@orion/design-tokens": ["libs/design-tokens/src/index.ts"],
+      "billing/Routes": ["apps/billing/src/app/remote-entry/entry.routes.ts"],
+      "analytics/Routes": [
+        "apps/analytics/src/app/remote-entry/entry.routes.ts"
+      ],
+      "compliance/Routes": [
+        "apps/compliance/src/app/remote-entry/entry.routes.ts"
+      ],
+      "@orion/shared-contracts": ["libs/backend/shared/contracts/src/index.ts"],
+      "@orion/shared-auth": ["libs/backend/shared/auth/src/index.ts"],
+      "@orion/shared-events": ["libs/backend/shared/events/src/index.ts"],
+      "@orion/shared-utils": ["libs/backend/shared/utils/src/index.ts"],
+      "@orion/analytics-service-client": ["apps/analytics-service/src/generated-client"],
+      "@orion/auth-service-client": ["apps/auth-service/src/generated-client"],
+      "@orion/billing-service-client": ["apps/billing-service/src/generated-client"],
+      "@orion/compliance-service-client": ["apps/compliance-service/src/generated-client"],
+      "@orion/feature-service-client": ["apps/feature-service/src/generated-client"],
+      "@orion/notification-service-client": ["apps/notification-service/src/generated-client"],
+      "@orion/user-service-client": ["apps/user-service/src/generated-client"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

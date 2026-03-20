@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthUser {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  roles        String   // storing roles as CSV for SQLite compatibility
+  permissions  String?  // storing permissions as CSV
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
